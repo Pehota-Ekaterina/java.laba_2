@@ -5,20 +5,23 @@ import java.awt.event.ActionListener;
 
 public class MyFrame extends JFrame {
 
-    private static final int w = 500;
-    private static final  int h = 300;
+    private static final int w = 600;
+    private static final  int h = 400;
 
     private JTextField mem_1;
     private JTextField mem_2;
     private JTextField mem_3;
     private JTextField answer;
+    private JTextField pole;
 
     Double mem1 = null;
     Double mem2 = null;
     Double mem3 = null;
     Double result = null;
-    Double mmem = 0.0;
     Integer count = 0;
+    Double value1 = 0.0;
+    Double value2 = 0.0;
+    Double value3 = 0.0;
 
     String formatResult = "";
     String a = "";
@@ -56,11 +59,11 @@ public class MyFrame extends JFrame {
         myButton.add(fun2);
                                                                                 //JRadioButton
         ButtonGroup buttonValue = new ButtonGroup();
-        JRadioButton value_1 = new JRadioButton("x", true);
+        JRadioButton value_1 = new JRadioButton("Переменная 1", true);
         buttonValue.add(value_1);
-        JRadioButton value_2 = new JRadioButton("y", false);
+        JRadioButton value_2 = new JRadioButton("Переменная 2", false);
         buttonValue.add(value_2);
-        JRadioButton value_3 = new JRadioButton("z", false);
+        JRadioButton value_3 = new JRadioButton("Переменная 3", false);
         buttonValue.add(value_3);
 
         mem_1 = new JTextField(" ",10);     //задает вид поля по умолчанию, максимальное количество символов
@@ -75,11 +78,20 @@ public class MyFrame extends JFrame {
         answer = new JTextField(" ",10);
         answer.setEditable(false);
         answer.setMaximumSize(answer.getPreferredSize());
+        pole = new JTextField(" ", 10);
+        pole.setEditable(false);
+        pole.setMaximumSize(answer.getPreferredSize());
+
 
         x.addActionListener(new ActionListener() {          //слушатели
             public void actionPerformed(ActionEvent ev) {
                 try{
                     count = 1;
+
+                    mem1 = null;
+                    a = "";
+                    mem_1.setText(a);
+
                 }
                 catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(MyFrame.this, "Неверный формат!");
@@ -91,6 +103,10 @@ public class MyFrame extends JFrame {
             public void actionPerformed(ActionEvent ev) {
                 try{
                     count = 2;
+
+                    mem2 = null;
+                    b = "";
+                    mem_2.setText(b);
                 }
                 catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(MyFrame.this, "Неверный формат!");
@@ -102,6 +118,10 @@ public class MyFrame extends JFrame {
             public void actionPerformed(ActionEvent ev) {
                 try{
                     count = 3;
+
+                    mem3 = null;
+                    c = "";
+                    mem_3.setText(c);
                 }
                 catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(MyFrame.this, "Неверный формат!");
@@ -333,19 +353,19 @@ public class MyFrame extends JFrame {
             public void actionPerformed(ActionEvent ev) {
                 try{
                     if(value_1.isSelected()){
-                        mem1 = null;
-                        a = "";
-                        mem_1.setText(a);
+                        value1 = 0.0;
+                        formatResult = String.format("%2f", value1);
+                        pole.setText(formatResult);
                     }
                     else if(value_2.isSelected()){
-                        mem2 = null;
-                        b = "";
-                        mem_2.setText(b);
+                        value2 = 0.0;
+                        formatResult = String.format("%2f", value2);
+                        pole.setText(formatResult);
                     }
                     else {
-                        mem3 = null;
-                        c = "";
-                        mem_3.setText(c);
+                        value3 = 0.0;
+                        formatResult = String.format("%2f", value3);
+                        pole.setText(formatResult);
                     }
                 }
                 catch (NumberFormatException ex){
@@ -357,20 +377,19 @@ public class MyFrame extends JFrame {
         mPlus.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 try {
-                    mem1 = Double.parseDouble(mem_1.getText());
-                    mem2 = Double.parseDouble(mem_2.getText());
-                    mem3 = Double.parseDouble(mem_3.getText());
-
                     if (value_1.isSelected()) {
-                        result += mem1;
+                        value1 += result;
+                        formatResult = String.format("%2f", value1);
+                        pole.setText(formatResult);
                     } else if (value_2.isSelected()) {
-                        result += mem2;
+                        value2 += result;
+                        formatResult = String.format("%2f", value2);
+                        pole.setText(formatResult);
                     } else {
-                        result += mem3;
+                        value3 += result;
+                        formatResult = String.format("%2f", value3);
+                        pole.setText(formatResult);
                     }
-
-                    formatResult = String.format("%2f", result);
-                    answer.setText(formatResult);
                 }
                 catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(MyFrame.this, "Неверный формат!");
@@ -440,9 +459,9 @@ public class MyFrame extends JFrame {
         Box value = Box.createHorizontalBox();
         value.add(Box.createHorizontalGlue());
         value.add(xbox);
-        value.add(Box.createHorizontalStrut(5));
+        value.add(Box.createHorizontalStrut(10));
         value.add(ybox);
-        value.add(Box.createHorizontalStrut(5));
+        value.add(Box.createHorizontalStrut(10));
         value.add(zbox);
         value.add(Box.createHorizontalGlue());
 
@@ -485,6 +504,13 @@ public class MyFrame extends JFrame {
         radio.add(fun2);
         radio.add(Box.createHorizontalGlue());
 
+        Box box5 = Box.createHorizontalBox();
+        box5.add(Box.createHorizontalGlue());
+        box5.add(start);
+        box5.add(Box.createHorizontalStrut(5));
+        box5.add(answer);
+        box5.add(Box.createHorizontalGlue());
+
         Box mbox = Box.createHorizontalBox();
         mbox.add(Box.createHorizontalGlue());
         mbox.add(value_1);
@@ -492,18 +518,16 @@ public class MyFrame extends JFrame {
         mbox.add(value_2);
         mbox.add(Box.createHorizontalStrut(2));
         mbox.add(value_3);
-        mbox.add(Box.createHorizontalStrut(5));
-        mbox.add(mc);
-        mbox.add(Box.createHorizontalStrut(5));
-        mbox.add(mPlus);
         mbox.add(Box.createHorizontalGlue());
 
-        Box box5 = Box.createHorizontalBox();
-        box5.add(Box.createHorizontalGlue());
-        box5.add(start);
-        box5.add(Box.createHorizontalStrut(5));
-        box5.add(answer);
-        box5.add(Box.createHorizontalGlue());
+        Box mbox2 = Box.createHorizontalBox();
+        mbox2.add(Box.createHorizontalGlue());
+        mbox2.add(mc);
+        mbox2.add(Box.createHorizontalStrut(5));
+        mbox2.add(mPlus);
+        mbox2.add(Box.createHorizontalStrut(5));
+        mbox2.add(pole);
+        mbox2.add(Box.createHorizontalGlue());
 
         Box content = Box.createVerticalBox();
         content.add(Box.createVerticalGlue());
@@ -519,9 +543,11 @@ public class MyFrame extends JFrame {
         content.add(Box.createVerticalStrut(5));
         content.add(radio);
         content.add(Box.createVerticalStrut(5));
+        content.add(box5);
+        content.add(Box.createVerticalStrut(5));
         content.add(mbox);
         content.add(Box.createVerticalStrut(5));
-        content.add(box5);
+        content.add(mbox2);
         content.add(Box.createVerticalGlue());
 
         getContentPane().add(content);
