@@ -349,6 +349,42 @@ public class MyFrame extends JFrame {
             }
         });
 
+        value_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try{
+                    formatResult = String.format("%2f", value1);
+                    pole.setText(formatResult);
+                }
+                catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(MyFrame.this, "Неверный формат!");
+                }
+            }
+        });
+
+        value_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try{
+                    formatResult = String.format("%2f", value2);
+                    pole.setText(formatResult);
+                }
+                catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(MyFrame.this, "Неверный формат!");
+                }
+            }
+        });
+
+        value_3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try{
+                    formatResult = String.format("%2f", value3);
+                    pole.setText(formatResult);
+                }
+                catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(MyFrame.this, "Неверный формат!");
+                }
+            }
+        });
+
         mc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 try{
@@ -411,7 +447,7 @@ public class MyFrame extends JFrame {
                             // mem1+mem2;
                             result = Math.pow((Math.log((1 + mem1) * (1 + mem1)) + Math.cos(mem3 * mem3 * mem3 * Math.PI)), Math.sin(mem2)) + Math.exp(Math.log(Math.pow(Math.E, mem1 * mem1) + Math.cos(Math.pow(Math.E, mem3)) + Math.sqrt(1 / mem2)) / (1 / mem1));
                         else{
-                            JOptionPane.showMessageDialog(MyFrame.this, "Ошибка!");
+                            JOptionPane.showMessageDialog(MyFrame.this, "Ошибка! X и Y не могут равняться нулю!");
                         }
                     }
                     else {
